@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://druids.tech/sitemap.xml
