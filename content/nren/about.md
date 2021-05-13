@@ -14,7 +14,7 @@ draft = false
 
 Currently a Graduate Tutor in Computer Science working on a PhD exploring the intersection of digital musical instrument (DMI) design and computer science - namely, how modern programming language theory can make DMI design more accessible, efficient and expressive. The contribution will be to propose a framework that describes how domain specific languages can be composed together to both describe and generate 'output'*. This research draws heavily on the theory around Functional Programming which allows us to guarantee certain things about the final output, reducing bugs whilst retaining efficiency at runtime. 
 
-_*compiled machine code/ bytecode, json/xml, .stl or any other implementation specific file that can be used in the production of DMIs_
+_*compiled machine code/ bytecode, json/xml, .stl or  other implementation specific files that can be used in the production of DMIs_
 
 ___ 
 # Blino
