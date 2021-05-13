@@ -1,0 +1,9 @@
+
+{% extends "base.html" %}
+
+{% block body %}
+<div class="post">
+  {{ page.content | safe}}
+</div>
+{{ macros::bottom_menu() }}
+{% endblock body %}

@@ -1,0 +1,44 @@
+{% macro title_or_last(component, offset=2) %}
+    {% set length = component.components | length %}
+    {% set name = component.components | last %}
+    {{ component.title | default(value=name) }}
+{% endmacro title_or_last %}
+
+{% macro format_date(date) %}
+    {% set date_format = config.extra.date_format | default(value="%a %b %e, %Y") %}
+    {{ date | date(format=date_format) }}
+{% endmacro format_date %}
+
+{% macro section_menu(path) %}
+    
+        {% set index = get_section(path=path) %}
+        {% for current in index.subsections %}
+            {% set current = get_section(path=current) %}
+            <p><a href="{{ current.permalink }}">{{ macros::title_or_last(component=current) }}</a></p>
+        {% endfor %}
+{% endmacro section_menu %}
+
+{% macro bottom_menu() %}
+    <div class="bottom-menu">
+        <hr/>
+        <p>
+
+                {% for link in config.extra.menu %}
+                    <a href="{{ link.link }}">{{ link.text }}</a>
+                    &#183;
+                {% endfor %}
+  
+                <a href="{{ config.base_url }}">
+                {{ config.extra.home | default(value="home") }}
+            </a>
+        </p>
+    </div>
+{% endmacro bottom_menu %}
+
+{% macro footer() %}
+    {% if config.extra.footer %}
+        <div class="footer">
+            {{ config.extra.footer.text | safe }}
+        </div>
+    {% endif %}
+{% endmacro footer %}

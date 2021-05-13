@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+  <title> Meep </title>
+  <style>
+    :root {
+    /* Light theme */
+    --c-light-text: #333;
+    --c-light-background: #fff;
+    --c-light-focus: deepskyblue;
+    --c-light-interactive: mediumvioletred;
+
+    /* Dark theme */
+    --c-dark-text: #fff;
+    --c-dark-background: #333;
+    --c-dark-focus: deeppink;
+    --c-dark-interactive: palegreen;
+  }
+
+  .theme-container {
+    /* Make the light theme the default */
+    --c-text: var(--c-light-text);
+    --c-background: var(--c-light-background);
+    --c-focus: var(--c-light-focus);
+    --c-interactive: var(--c-light-interactive);
+
+    padding: 1.5rem;
+    color: var(--c-text);
+    background-color: var(--c-background);
+
+  }
+
+  .dark-mode-checkbox:checked ~ .theme-container {
+    /* Override the default theme */
+    --c-text: var(--c-dark-text);
+    --c-background: var(--c-dark-background);
+    --c-focus: var(--c-dark-focus);
+    --c-interactive: var(--c-dark-interactive);
+  }
+
+  .dark-mode-label {
+    white-space: nowrap;
+    padding-right: 10px;
+  }
+
+  :focus,
+  .dark-mode-checkbox:focus ~ .theme-container .dark-mode-label {
+    outline: 2px solid var(--c-focus);
+  }
+  /*
+  * Replace original checkbox
+  */
+
+  .dark-mode-label::before {
+    content: "| |";
+  }
+
+  .dark-mode-checkbox:checked ~ .theme-container .dark-mode-label::before {
+    content: "|x|";
+  }
+
+  /*
+  visibility-hidden utility class
+
+  Source: https://github.com/h5bp/html5-boilerplate
+
+  Hide only visually, but have it available for screen readers:
+  https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+
+  1. For long content, line feeds are not interpreted as spaces
+    and small width causes content to wrap 1 word per line:
+    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
+  */
+  .visually-hidden {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    white-space: nowrap; 
+  }
+  
+  html {
+    
+  }
+
+  body {
+    margin: 0;
+    font-size: 16px;
+    font-family: 'Source Code Pro', monospace;
+    line-height: 2rem;
+    letter-spacing: 1.5px;
+    text-shadow: none;
+  }
+
+  a {
+    color: var(--c-interactive);
+    text-decoration: none;
+  }
+
+  h1 {
+    margin-top: 0;
+  }
+  ul{
+    list-style-type: none;
+    margin-left: 0;
+    padding: 0;
+  }
+  code {
+    font-family: 'Fira Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  }
+  img{
+      max-width: 100%;
+      display: block;
+  }
+
+  .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: calc(100vh - 6em);
+  }
+
+  .page-header{
+    padding-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    max-height: 10vh;
+  }
+  
+  .dark-mode-label{
+    flex: 1;
+  }
+
+  .pubkey{
+    flex: 8;
+    max-height: 10vh;
+    line-height: 2px;
+    white-space: wrap;
+    min-height: 0;
+    min-width: 0;
+  }
+
+  .post{
+    max-width: 59vw;
+  }
+
+  .section{
+    font-size: 1.5rem;
+  }
+
+  
+  
+
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const checkbox = document.querySelector('.dark-mode-checkbox');
+
+      checkbox.checked = localStorage.getItem('darkMode') === 'true';
+
+      checkbox.addEventListener('change', function (event) {
+        localStorage.setItem('darkMode', event.currentTarget.checked);
+      });
+    });
+
+    
+    
+  </script>
+
+</head>
+<body>
+    <input id="dark-mode" class="dark-mode-checkbox visually-hidden" type="checkbox">
+    <div class="theme-container grow">
+      <header class="page-header">
+          <label class="dark-mode-label" for="dark-mode">
+            Dark mode
+          </label>
+
+          <span class="pubkey" style="color: white; font-size: 2px; overflow-wrap: break-word;">
+            -----BEGIN PGP PUBLIC KEY BLOCK-----Version: BCPG v1.68mQINBGB0kUUBEACrvGFTf9OoAJXw3tZu&#x2F;jiWtF+wXGxlR5Mq+8ykACNQf5tzIFLalkAyhB2XdctlxmWaRHjormYns&#x2F;0DadQXbfGuri+7J7jTIGpxN39VTF&#x2F;LlEuDtGe3nKL2Dwd879w93yUx+7T7GzUmfyPEp08838CphW+xJTJ1Yh&#x2F;I6IuESx6C2bOsMXE0n0puAHhDY6mN3uL1vWrP6m4STr+n1+k6gXVVzwSL8DCZhHuxmGmbpgh4IP5kT1vo4uvOfxbzn7GyMMnY9XclwkID+dkEhK3dD6G4Rb5p2Mgsc+5gfFx6pZJtyNI0QE4U5BX&#x2F;QgkuUPV&#x2F;GoQqMgnWyxvrx7rMb5apPwm8GKjDNSY78N6n0SMMkZoAUrj4GV9eCfeFF0w8F2L94ha8SaP4PGX3AapeC&#x2F;mJKPdlDB0ODA7o13ZmWj42BQvpfk03kIhlIVXQaNidcC466GW&#x2F;UCkKa0qByEpvYzhjsUjP&#x2F;LzbAqYWNWzcgjSpCTWNXvl&#x2F;KZtyti2RDN2QMnpFxQaWqtxZ5l5PMrLr5MZRSIxaGQ8T8rW0qDu+WAFQIfHyMOFs3HqZSPG3cIU&#x2F;iRJ8uo5lSqN44BD5Hdozv&#x2F;S6wHVJM85fR&#x2F;cT+QtndzrhXc+vECItBhs3HVLHh3&#x2F;sXtNv&#x2F;zh7foB4hv2gGmSSJgLAKnf34EW4JXqBzGnvQ1O9pXrMuQARAQABtCJOYXRoYW4gUmVubmV5IDxuYXRoYW5AZHJ1aWRzLnRlY2g+iQI2BBABCAAgBQJgdJFFBgsJBwgDAgQVCAoCBBYCAQACGQECGwMCHgEACgkQJEZsXi6Y5FJ&#x2F;uQ&#x2F;9FRi4D5fxhJMjjAgOYOvBg8BBDv8A3+o+YkLCShm1d1RrNjzvzXvhurmuOkdc9+pQzr15lvPIZz7zUBTazWQKKUbzafaBC5dPO7FKcldfEGh6+pt23qbjzDDDqodRHfksTofWWd6rKFKZHSzkiVPkxA&#x2F;PAqNyEf8Ma0SIaVrqCcsFWnrjlOPt38cICZQ472Qx5BD3+Hq+AdF9eA10Vk+BiLwpdDx9WcB3QWCrDkXKFgN+GVgezTfSmIlPcDZJNExyFXAYpxOM+dLDyb0orp&#x2F;uq9PAqFoNyszdS+Lfv+inCLU1ugDCiY2dpvOH3Pl0taFbFfng3zjSNe05CnYXXxBFLF8t8&#x2F;yCIuptgQW87hwOCSySYG5mMbkLIfe6Ry4NSyl&#x2F;S1ASPhdFaCxK9UO2DEUj5xSv4CFR8Dm9Q&#x2F;dOW7m5OiwRpmyZx4NSW5NigBTv5X&#x2F;34fcREZhVcA2GVqYphsuBj7Bw2K9PvWxGD4ePZYLbXO5EKSWMTHpWD5lfuBQkjS0S0OjLdOyLQ2gnxH1RrQxfx2+bA5RlJAe0KqnP1W5VM&#x2F;+hnXUiidjDLfcTqjp2glTpRKW0PDoexaNu9Agn2Pe4zaTNNXPl35cGtwhCKKViMSnEeJBcHC5j9S48NIcb4h7RXDTr5Ont5HgxLZ9MkD0f2ODANuTjFrtqWaypp1EVJ7e5Ag0EYHSRRQEQANHng9W7Yw11Hu7Z4Msu191uN97CmIKCHcDLte&#x2F;Kjb&#x2F;DWR8QHEj7yy4pdZG0U1zFEawXClb&#x2F;5pDRXeiChQ3UuLoct&#x2F;rIrMdrJe&#x2F;HYvIUg&#x2F;xk5CINXXuBBrzhLL6eOwFoRzWKNUm9xtPMB7JvVrQTuR7G03b8YOteW2zSX6mA3t5HugoJjaxblj9FDJLdez3NO2KqaP2l+vjAY2SPCWuLMC4q3GtpZ3qOepm+jzLPFhRRDv+au5lMGrTng5lGVYLgsBU+4V60iClqcbtvy18Y5e7cJilUTePDETxlvmGyK0dLTnGWW&#x2F;nZPCtw8yorZ323T4NqTu1vwGReTEZL7M06uCZiWwjD&#x2F;zbQSAv6Yp41ZyQMujUqTOh7tOB360Fc9Xc7JbQxKX5AniAn1PWt1P4546e+YR+HyUJvGrUB7mwVb&#x2F;WLh8txvp5mHtjKINXtvlziOrhmSoC&#x2F;OrhOhP0lsyXxUXHlB&#x2F;qzjIVYzYxb1jx8gsslUqw99531VXsV+ZMz2qkIJMrS1xLCNo7wNPz+H4nDpy7cRJJ2nhVL&#x2F;lkf0n3mCiR5MrMXJg8kXOXsRf6BgSuHSyIGgzncckv2hFfrogdHtS45cgK5hgsY2AsVJnFuA4kTuK0x9sp1wgRuKmo3KlS5&#x2F;QPH6dIXWrtCEhoif7jEVA055MA8LLRBUz&#x2F;G8Aqf8vlNABEBAAGJAh8EGAEIAAkFAmB0kUUCGwwACgkQJEZsXi6Y5FLlbA&#x2F;+JxgrlmPcydAISHsd4w8xD&#x2F;GDY0DToHUOgmTt0xm3rsfcrWSj9iF4D1LiTwL+uAvK+Z3yQWCez+Y1PnfAz47g5xwOmAuxCqD9jc33AYdORgWOe0UDI+Y6nG0944ZXnYZVOPZfOtXissI0oijpMYpMT5ADM3mU13&#x2F;8gCRSwhdlJdjMUOBOTDEY2q+KcG+&#x2F;r5TSFDKSzHey2hyp6uxrvG2lUyp0AStOFUhRVel9f2w3V4rWB8Ful&#x2F;lNtPKOLcL7S8UAfarrNK302sjyYXAn2QRRGQuWrgm&#x2F;WYAYRnUGS5q4lKK1p18qPiT0Tpav&#x2F;0bwLCZLp3GtNSCqEFViaEy2CN3eKgXeyAahxAeUG099DdlJ6F5PUPKl2mp1FCyxkeBVqnakQ6aUPu43prCcWcB6RvRcxO9P5PBmnGu9GibyYNF&#x2F;X0rht6S6dhrGuf6gSe3W4vjyFY2kd3lFgFf6J65tm5H+FSM8NSjNixSQK9ng65+g6R&#x2F;BxOKc0aSfT3cKbFgSDANMvZ97lA82keE73crJttLe3zQZB1Whkp064KuePt1E3KJiI4xcSk0zrL7q8ZL1nt8ox7WeYyMBNKITKB&#x2F;&#x2F;NzAJHG4CbUSiSe3GkbthfRlNQN1kRWxDcNknKMP&#x2F;yMugzfh2KAvdDlHInPcVh5J1zXlDa2QtIY&#x2F;9iyPIsT4B7qdrziE==J4H&#x2F;-----END PGP PUBLIC KEY BLOCK-----
+          </span>
+          
+        </header>
+
+        <div class="container">
+          
+        <div class="section" id="sections">
+            
+    
+    
+        
+        
+            
+            <p><a href="https:&#x2F;&#x2F;druids.tech&#x2F;nren&#x2F;life&#x2F;">
+    
+    
+    life
+</a></p>
+        
+            
+            <p><a href="https:&#x2F;&#x2F;druids.tech&#x2F;nren&#x2F;research&#x2F;">
+    
+    
+    research
+</a></p>
+        
+            
+            <p><a href="https:&#x2F;&#x2F;druids.tech&#x2F;nren&#x2F;tech&#x2F;">
+    
+    
+    tech
+</a></p>
+        
+
+
+        </div>
+        <br>
+        <div class="section" id="content">
+            
+<ul>
+    
+        <li>
+            <a href="https:&#x2F;&#x2F;druids.tech&#x2F;nren&#x2F;about&#x2F;">
+    
+    
+    About
+</a>
+        </li>    
+    
+</ul>
+
+        </div>
+        
+    <div class="bottom-menu">
+        <hr/>
+        <p>
+
+                
+                    <a href="&#x2F;druids">druids.tech</a>
+                    &#183;
+                
+                    <a href="&#x2F;losun">lo-sun</a>
+                    &#183;
+                
+                    <a href="&#x2F;nren">nathan</a>
+                    &#183;
+                
+  
+                <a href="https:&#x2F;&#x2F;druids.tech">
+                index
+            </a>
+        </p>
+    </div>
+
+        
+    
+        <div class="footer">
+            
+        </div>
+    
+
+
+        </div>
+    </div>
+
+</body>
+
+</html>

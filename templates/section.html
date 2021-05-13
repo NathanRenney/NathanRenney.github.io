@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block sections %}
+    {{ macros::section_menu(path=section.relative_path) }}
+{% endblock sections %}
+
+{% block content %}
+<ul>
+    {% for page in section.pages %}
+        <li>
+            <a href="{{ page.permalink }}">{{ macros::title_or_last(component=page, offset=0) }}</a>
+        </li>    
+    {% endfor %}
+</ul>
+{% endblock content %}

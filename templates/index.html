@@ -1,0 +1,225 @@
+{% import "macros.html" as macros %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+  <title> Meep </title>
+  <style>
+    :root {
+    /* Light theme */
+    --c-light-text: #333;
+    --c-light-background: #fff;
+    --c-light-focus: deepskyblue;
+    --c-light-interactive: mediumvioletred;
+
+    /* Dark theme */
+    --c-dark-text: #fff;
+    --c-dark-background: #333;
+    --c-dark-focus: deeppink;
+    --c-dark-interactive: palegreen;
+  }
+
+  .theme-container {
+    /* Make the light theme the default */
+    --c-text: var(--c-light-text);
+    --c-background: var(--c-light-background);
+    --c-focus: var(--c-light-focus);
+    --c-interactive: var(--c-light-interactive);
+
+    padding: 1.5rem;
+    color: var(--c-text);
+    background-color: var(--c-background);
+
+  }
+
+  .dark-mode-checkbox:checked ~ .theme-container {
+    /* Override the default theme */
+    --c-text: var(--c-dark-text);
+    --c-background: var(--c-dark-background);
+    --c-focus: var(--c-dark-focus);
+    --c-interactive: var(--c-dark-interactive);
+  }
+
+  .dark-mode-label {
+    white-space: nowrap;
+    padding-right: 10px;
+  }
+
+  :focus,
+  .dark-mode-checkbox:focus ~ .theme-container .dark-mode-label {
+    outline: 2px solid var(--c-focus);
+  }
+  /*
+  * Replace original checkbox
+  */
+
+  .dark-mode-label::before {
+    content: "| |";
+  }
+
+  .dark-mode-checkbox:checked ~ .theme-container .dark-mode-label::before {
+    content: "|x|";
+  }
+
+  /*
+  visibility-hidden utility class
+
+  Source: https://github.com/h5bp/html5-boilerplate
+
+  Hide only visually, but have it available for screen readers:
+  https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+
+  1. For long content, line feeds are not interpreted as spaces
+    and small width causes content to wrap 1 word per line:
+    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
+  */
+  .visually-hidden {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    white-space: nowrap; 
+  }
+  
+  html {
+    
+  }
+
+  body {
+    margin: 0;
+    font-size: 16px;
+    font-family: 'Source Code Pro', monospace;
+    line-height: 2rem;
+    letter-spacing: 1.5px;
+    text-shadow: none;
+  }
+
+  a {
+    color: var(--c-interactive);
+    text-decoration: none;
+  }
+
+  h1 {
+    margin-top: 0;
+  }
+  ul{
+    list-style-type: none;
+    margin-left: 0;
+    padding: 0;
+  }
+  code {
+    font-family: 'Fira Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  }
+  img{
+      max-width: 100%;
+      display: block;
+  }
+
+  .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: calc(100vh - 6em);
+  }
+
+  .page-header{
+    padding-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    max-height: 10vh;
+  }
+  
+  .dark-mode-label{
+    flex: 1;
+  }
+
+  .pubkey{
+    flex: 8;
+    max-height: 10vh;
+    line-height: 2px;
+    white-space: wrap;
+    min-height: 0;
+    min-width: 0;
+  }
+
+  .post{
+    max-width: 59vw;
+  }
+
+  .section{
+    font-size: 1.5rem;
+  }
+
+  {% block styles %}
+  {% endblock styles %}
+
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const checkbox = document.querySelector('.dark-mode-checkbox');
+
+      checkbox.checked = localStorage.getItem('darkMode') === 'true';
+
+      checkbox.addEventListener('change', function (event) {
+        localStorage.setItem('darkMode', event.currentTarget.checked);
+      });
+    });
+
+    {% block scripts %}
+    {% endblock scripts %}
+  </script>
+
+</head>
+<body>
+    <input id="dark-mode" class="dark-mode-checkbox visually-hidden" type="checkbox">
+    <div class="theme-container grow">
+      <header class="page-header">
+          <label class="dark-mode-label" for="dark-mode">
+            Dark mode
+          </label>
+
+          <span class="pubkey" style="color: white; font-size: 2px; overflow-wrap: break-word;">
+            {{config.extra.pubkey}}
+          </span>
+          
+        </header>
+
+        <div class="container">
+          {% block body %}
+              {% if config.extra.menu %}
+                  {% for link in config.extra.menu %}
+                      <div class="big-link">
+                          <a href="{{ link.link }}">
+                              {{ link.text }}
+                          </a>
+                      </div>
+                  {% endfor %}
+              {% else %}
+                  {% for current in section.subsections %}
+                      {% set current = get_section(path=current) %}
+                      <div class="big-link">
+                          <a href="{{ current.permalink }}">
+                              {{ macros::title_or_last(component=current) }}
+                          </a>
+                      </div>
+                  {% endfor %}
+              {% endif %}
+          {% endblock body %}
+        </div>
+    </div>
+
+</body>
+
+</html>
