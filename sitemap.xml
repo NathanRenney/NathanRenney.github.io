@@ -10,6 +10,14 @@
         <loc>https://druids.tech/druids/</loc>
     </url>
     <url>
+        <loc>https://druids.tech/druids/about/</loc>
+        <lastmod>2022-01-19T18:40:56Z</lastmod>
+    </url>
+    <url>
+        <loc>https://druids.tech/druids/content/</loc>
+        <lastmod>2022-01-19T18:40:56Z</lastmod>
+    </url>
+    <url>
         <loc>https://druids.tech/losun/</loc>
     </url>
     <url>
@@ -68,5 +76,9 @@
     <url>
         <loc>https://druids.tech/nren/tech/ringseq/</loc>
         <lastmod>2020-07-01T14:37:49+01:00</lastmod>
+    </url>
+    <url>
+        <loc>https://druids.tech/nren/time/</loc>
+        <lastmod>2018-12-15T16:40:56Z</lastmod>
     </url>
 </urlset>
